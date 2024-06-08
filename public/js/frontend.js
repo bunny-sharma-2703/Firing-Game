@@ -60,6 +60,10 @@ socket.on('updatePlayers', (backendPlayers) => {
           frontEndPlayers[id].x = individualBackendPlayer.x
           frontEndPlayers[id].y = individualBackendPlayer.y
          
+          /**
+           * gsap is the library used for interpolation 
+           * EX:- when there is lag between the client side position change and server saving the response and giving back the response to the frontend
+           *  */ 
           gsap.to(frontEndPlayers[id], {
             x: individualBackendPlayer.x,
             y: individualBackendPlayer.y,
