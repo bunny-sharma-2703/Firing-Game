@@ -45,8 +45,6 @@ socket.on('updatePlayers', (backendPlayers) => {
        * Because in the frontend we are moving immediately on key strokes for better user experience
        */
       if(id === socket.id){
-        frontEndPlayers[id].x = individualBackendPlayer.x
-        frontEndPlayers[id].y = individualBackendPlayer.y
         const lastBackendInputIndex = playerInputs.findIndex(input => {
           return backendPlayers.sequenceNumber === input.sequenceNumber
         })
@@ -56,21 +54,21 @@ socket.on('updatePlayers', (backendPlayers) => {
             frontEndPlayers[id].x += input.dx
             frontEndPlayers[id].y += input.dy
           })
-        }else{
-          frontEndPlayers[id].x = individualBackendPlayer.x
-          frontEndPlayers[id].y = individualBackendPlayer.y
-         
-          /**
-           * gsap is the library used for interpolation 
-           * EX:- when there is lag between the client side position change and server saving the response and giving back the response to the frontend
-           *  */ 
-          gsap.to(frontEndPlayers[id], {
-            x: individualBackendPlayer.x,
-            y: individualBackendPlayer.y,
-            duration: 0.015,
-            ease: 'linear'
-          })
         }
+      }else{
+        frontEndPlayers[id].x = individualBackendPlayer.x
+        frontEndPlayers[id].y = individualBackendPlayer.y
+       
+        /**
+         * gsap is the library used for interpolation 
+         * EX:- when there is lag between the client side position change and server saving the response and giving back the response to the frontend
+         *  */ 
+        gsap.to(frontEndPlayers[id], {
+          x: individualBackendPlayer.x,
+          y: individualBackendPlayer.y,
+          duration: 0.015,
+          ease: 'linear'
+        })
       }
     }
   }
